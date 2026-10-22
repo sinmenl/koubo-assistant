@@ -1,0 +1,24 @@
+name: Check agent project
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test project validator
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Check project and tracked publication scope
+        run: python3 scripts/check_project.py --tracked
