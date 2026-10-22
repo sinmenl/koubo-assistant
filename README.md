@@ -2,7 +2,9 @@
 
 给同伴用时：**发整个压缩包**，不要只发 `AGENTS.md`。
 
-> 主文件已瘦身，进阶功能说关键词才加载（见下方关键词表），省 token。
+> 主文件已瘦身，默认路线会自动做 Don 哥的共鸣与衔接检查；其余进阶功能说关键词才加载（见下方关键词表）。
+
+用户选定观点后，先按原流程串联相关原文，再自动调用 `dbs-resonate` 检查这份半成品，然后继续原门禁。通过门禁并按原五段结构成稿后，自动调用 `dbs-script-flow` 检查衔接；只检查不代表自动改稿。未选观点时不提前检查，未成稿时不运行衔接检查。原来的旁支卡片、风格与 memory 规则继续执行。
 
 ## 一图看懂
 
@@ -63,8 +65,8 @@
 | `/口播` | 主流程（默认路线，或直接发流水账） | `AGENTS.md` |
 | `/存卡` | 未选中的点展开为洞见卡四件套 | `skills/jianxingying/cards.md` |
 | `/翻旧账` | 钉回时刻 + 完整回顾历史分享 | `skills/jianxingying/history.md` |
-| `/共鸣` | 深度共鸣诊断（dbs-resonate） | `skills/jianxingying/resonate.md` |
-| `/顺一下` | 口播顺滑检查（dbs-script-flow） | `skills/jianxingying/flow.md` |
+| `/共鸣` | 默认在选定观点并串联后自动检查，也可单独要求深度诊断（dbs-resonate） | `skills/jianxingying/resonate.md` |
+| `/顺一下` | 默认在成稿后自动检查，也可单独要求顺稿（dbs-script-flow） | `skills/jianxingying/flow.md` |
 | `/标题` | 标题封面开头（dbs-title-cover-intro） | `skills/jianxingying/title.md` |
 | `/灵感` | 材料薄时三刀炼灵感 | `skills/jianxingying/linggan.md` |
 | `/复盘` `/7天复盘` | 扫 memory 近 7 天（可后跟用户标识） | `skills/jianxingying/review.md` |
