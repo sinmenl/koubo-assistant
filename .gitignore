@@ -1,23 +1,14 @@
-# Personal configuration and content
+# Git excludes personal data; agent behavior is preserved from the original package.
 /local/
 /inbox/
 /output/
 /backups/
 /backup/
-/.backups/
 /memory/*
 !/memory/_README.md
 !/memory/_template.md
 /style-profiles/*
 !/style-profiles/_template.md
-
-# Optional third-party snapshot from the old package
-/skills/dbskill/
-
-# Historical quick-command image
-/口播助手-进阶指令.jpg
-
-# Secrets, backups and system/editor files
 .env
 .env.*
 *.pem
@@ -29,6 +20,3 @@
 .DS_Store
 __pycache__/
 *.py[cod]
-.venv/
-.vscode/
-.idea/

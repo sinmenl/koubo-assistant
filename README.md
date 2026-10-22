@@ -1,93 +1,76 @@
-# 口播助手
+# 践行营 · 流水账→口播 分发包
 
-把流水账、读书理解或自己的观察，整理成一条有依据、能直接说出口的短视频口播。也可只做标题、流畅检查、知识卡片或视频复盘。
+给同伴用时：**发整个压缩包**，不要只发 `AGENTS.md`。
 
-**当前版本：0.2.0** · 私有项目 · [本轮变化](CHANGELOG.md)
+> 主文件已瘦身，进阶功能说关键词才加载（见下方关键词表），省 token。
 
-这是给能够读取项目文件的 AI Agent 使用的说明与模板，不是独立运行的软件。无需安装额外工具就能走基础流程；实际效果仍取决于宿主模型是否遵循规则。个人记录默认关闭。
+## 一图看懂
 
-## 开始用
+不知道发什么指令？先看 `口播助手-进阶指令.jpg`：我想要什么，就发对应的指令。
 
-1. 克隆仓库或下载完整项目，放在单独的文件夹中；不要把它覆盖到已有规则的项目根目录。
-2. 用你的 AI Agent 打开这个文件夹，让它先读 [AGENTS.md](AGENTS.md)。不能自动识别项目规则的宿主，请明确说“先读取 AGENTS.md，按它处理本次请求”。
-3. 直接贴材料并说想做什么，例如：
+## 包里有什么
 
-> /口播。这期就讲“把练习缩到能马上开始的一步”。下面是我的原始记录，请保留事实，不补经历。
-
-已经明确主张就直接写；只有没定主张时才列候选。反常识、固定五段结构和提问结尾都是可选项。书摘可以做读书理解，不能改成“我亲身验证过”。
-
-已有稿件可直接说“只顺一下第二段”“给这篇终稿起三个标题”；只想练表达时，说“先让我讲，你只判断说清楚没有，给一个改进”。这些请求都不必重跑选题。
-
-## 常用请求
-
-| 想做什么 | 可以这样说 |
+| 文件 | 作用 |
 | --- | --- |
-| 材料转口播 | `/口播`，附材料；有主张就一起说明 |
-| 保留一个观点 | `/存卡` |
-| 查找同题旧材料 | `/翻旧账`，指定材料范围 |
-| 看稿件是否打中人 | `/共鸣` |
-| 检查衔接和口语 | `/顺一下` |
-| 标题／封面文字／开头 | `/标题`，说明只需要哪项 |
-| 找可讲的角度 | `/灵感` |
-| 回看最近七天 | `/复盘` 或 `/7天复盘` |
-| 分析视频表现 | `/诊断`，附平台、采样时间与已有指标 |
-| 展开较长的论证 | 说明目标时长；旧口令“按胡子哥口播”仍可识别 |
+| `AGENTS.md` | 瘦身主文件：硬边界 + 默认路线（选型、串联、门禁、五段口播、卡标题、结束写风格与 memory）+ 关键词表 |
+| `skills/jianxingying/` | 按需加载的进阶步骤：存卡、翻旧账、共鸣、顺一下、标题、灵感、复盘、风格/memory 细则、故障处理 |
+| `skills/linggan/` | 胡子哥「灵感炼金炉」 |
+| `skills/dongjian-card/` | 胡子哥「知识卡片锻造」 |
+| `skills/koubo-huzige/` | 胡子哥「口播炼金」（黄金骨架） |
+| `skills/short-video-diagnosis/` | 短视频诊断教练（错题本） |
+| `skills/dbskill/` | Don 哥 [dbskill](https://github.com/dontbesilent2025/dbskill) 全套（含 dbs / resonate / script-flow 等），**已放进包内** |
+| `style-profiles/` | 风格进化档案（只记文风；按用户一人一份；含 `_template.md`） |
+| `memory/` | 践行记忆（记「这期做了什么」；含 `_README.md`、`_template.md`；供 `/复盘` 7 天回顾） |
 
-这些是对话快捷词，不保证出现在软件的斜杠菜单中。原来的 `口播助手-进阶指令.jpg` 仅作本地旧版记录，新使用方式以这里为准。
 
-## 个人材料留在本地
+## 安装（写给收到包的人）
 
-默认只在对话中交付，不会创建个人会话档案。需要持续记录时，把 [config.example.json](config.example.json) 复制为 `local/config.json`，填入自己的标识，例如：
-
-```json
-{
-  "profile_id": "my-notes",
-  "record_sessions": true,
-  "learn_style": false,
-  "timezone": "Asia/Shanghai"
-}
-```
-
-这是 Agent 要读取的配置约定，不会启动后台程序。`record_sessions` 控制本地会话记录，`learn_style` 独立控制文风学习。用户也可仅要求保存本次，不永久打开开关。标识只用英文字母、数字、短横线和下划线；多人共用时先确认当前身份，不能自动写进共享档案。
+1. 解压到你的 **Agent 项目根目录**（Cursor 打开的那个文件夹）。
+2. 确认结构：
 
 ```text
-local/                         # 整个目录不提交 Git
-├── config.json
-├── inbox/                     # 用户放入的原始材料
-├── output/                    # 用户要求保存的成稿、卡片
-├── sessions/{profile_id}/      # 一期一文件，修改沿用 ID
-└── style-profiles/             # 只从用户表达中归纳文风
+你的项目/
+├── AGENTS.md
+├── README.md
+├── skills/
+│   ├── linggan/SKILL.md
+│   ├── dongjian-card/SKILL.md
+│   ├── koubo-huzige/SKILL.md
+│   ├── short-video-diagnosis/SKILL.md
+│   ├── jianxingying/       ← 按需文件：说关键词才读
+│   │   ├── cards.md  history.md  resonate.md  flow.md  title.md
+│   │   ├── linggan.md  review.md  style.md  memory.md
+│   │   └── troubleshooting.md
+│   └── dbskill/          ← Don 哥整包，解压即用
+│       ├── dbs/
+│       ├── dbs-resonate/
+│       ├── dbs-script-flow/
+│       └── …
+├── style-profiles/       ← 风格档案（只记文风；可空；Agent 会按人写入）
+│   └── _template.md
+└── memory/               ← 践行记忆（口播结束记一条；/复盘 看近 7 天）
+    ├── _README.md
+    └── _template.md
 ```
 
-成稿、拍摄、发布状态分别记录，没有反馈就是“未知”。风格不会从 AI 自己生成的句子学习。旧 `memory/` 与 `style-profiles/` 的个人记录不会自动迁移；迁移方法见 [维护说明](docs/MAINTAINING.md)。Git 忽略是防误传措施，不是加密或备份；写文件也不授权上传。
+3. 对 Agent 说「按 AGENTS.md 跑」或直接发流水账 / 输入 `/口播`。
+4. 可选自建：`inbox/` 放历史分享，`output/` 放成稿。
 
-## 更新与版本
+## 关键词表
 
-项目规则和个人数据分开放置。使用 Git 的人，在本文件夹中更新：
+| 关键词 | 作用 | 读的文件 |
+| --- | --- | --- |
+| `/口播` | 主流程（默认路线，或直接发流水账） | `AGENTS.md` |
+| `/存卡` | 未选中的点展开为洞见卡四件套 | `skills/jianxingying/cards.md` |
+| `/翻旧账` | 钉回时刻 + 完整回顾历史分享 | `skills/jianxingying/history.md` |
+| `/共鸣` | 深度共鸣诊断（dbs-resonate） | `skills/jianxingying/resonate.md` |
+| `/顺一下` | 口播顺滑检查（dbs-script-flow） | `skills/jianxingying/flow.md` |
+| `/标题` | 标题封面开头（dbs-title-cover-intro） | `skills/jianxingying/title.md` |
+| `/灵感` | 材料薄时三刀炼灵感 | `skills/jianxingying/linggan.md` |
+| `/复盘` `/7天复盘` | 扫 memory 近 7 天（可后跟用户标识） | `skills/jianxingying/review.md` |
+| `/诊断` | 短视频数据诊断 | `skills/short-video-diagnosis/SKILL.md` |
+| 「按胡子哥口播」 | 黄金骨架那套（与五段骨架二选一） | `skills/koubo-huzige/SKILL.md` |
 
-```sh
-git status --short
-git pull --ff-only
-python3 scripts/check_project.py --tracked
-```
+## 来源说明
 
-有本地规则改动或冲突就先处理，不强制覆盖；`local/` 不参与项目更新。下载 ZIP 的人应先在新文件夹打开新版，再按需复制自己的 `local/`，不要整包覆盖。详细维护、回退和提交步骤见 [维护说明](docs/MAINTAINING.md)。
-
-本轮改动及下一步观察项见 [0.2.0 迭代记录](docs/ITERATION-0.2.0.md)。每次发布更新 [VERSION](VERSION) 与 [CHANGELOG.md](CHANGELOG.md)，Git 记录保留变更历史。
-
-## 检查
-
-检查工具需要 Python 3.10 或以上，不需要额外 Python 库。
-
-```sh
-python3 -m unittest discover -s tests -v
-python3 scripts/check_project.py --tracked
-```
-
-它们验证结构、链接、配置默认值和 Git 上传范围；模型行为另外按 [验收案例](tests/scenarios.md) 核查，不能用结构检查冒充创作效果。GitHub 上每次推送与拉取请求都会运行同样的结构检查。
-
-## 来源与可选工具
-
-核心流程可以独立使用。`/共鸣`、`/顺一下`、`/标题`可按需使用已安装的 [dbskill](https://github.com/dontbesilent2025/dbskill)，不存在就走内置简版，不自动安装。
-
-旧包中的第三方整套工具仍可留在本机，但不纳入本项目 Git。四份原提示词改为本项目重写的适配说明，保留来源沿革而不冒称官方版本；见 [THIRD_PARTY.md](THIRD_PARTY.md)。本仓库尚未指定统一对外再分发许可，私有托管不等于已授权公开发布。
+胡子哥（姜胡说）skill 摘自其「0摩擦一条龙：灵感+洞见卡+口播」公开分享；短视频诊断提示词来自用户提供的原文。转发给同伴时请注明出处，尊重原作者更新。
